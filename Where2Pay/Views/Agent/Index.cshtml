@@ -1,0 +1,29 @@
+﻿<h1>@ViewBag.Title</h1>
+
+@if (ViewBag.agents.Count == 0)
+{
+    <p><h2>No Agents yet!</h2></p>
+}
+
+<table class="table">
+
+    <tr>
+        <th>Agents</th>
+        <th>Agent ID</th>
+        <th>Agent Phone Number</th>
+        <th></th>
+    </tr>
+
+    @foreach (var agent in ViewBag.agents)
+    {
+    <tr>
+        <td>@agent.Name</td>
+        <td>@agent.AgentId</td>
+        <td>@agent.Phone</td>
+
+        <td><a asp-area="" asp-controller="Agent" asp-action="Remove">Edit or Remove</a></td>
+    </tr>
+    }
+</table>
+
+<p><a asp-area="" asp-controller="Agent" asp-action="Add">Add Agent</a></p>

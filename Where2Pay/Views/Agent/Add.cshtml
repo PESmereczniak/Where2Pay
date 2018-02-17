@@ -1,0 +1,42 @@
+﻿<h1>Add Biller</h1>
+
+<form method="post">
+
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input class="form-control" name="name" id="name" type="text" />
+    </div>
+    <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input class="form-control" name="phone" id="phone" type="text" />
+    </div>
+    <div class="form-group">
+        <label for="street1">Street 1</label>
+        <input class="form-control" name="street1" id="street1" type="text" />
+    </div>
+    <div class="form-group">
+        <label for="street2">Street 2</label>
+        <input class="form-control" name="street2" id="street2" type="text" />
+    </div>
+    <div class="form-group">
+        <label for="city">City</label>
+        <input class="form-control" name="city" id="city" type="text" />
+    </div>
+    <div class="form-group">
+        <label for="state">State</label>
+        <input class="form-control" name="state" id="state" type="text" />
+    </div>
+    <div class="form-group">
+        <label for="zip">Zip</label>
+        <input class="form-control" name="zip" id="zip" type="text" />
+    </div>
+    <h3>Biller Select</h3>
+    @foreach (var biller in ViewBag.billers)
+    {
+        <input type="checkbox" name="BillerId" id="@biller.BillerId" value="@biller.BillerId" />
+        <label for="@biller.BillerId">@biller.Name</label>
+        <br />
+    }
+    <input type="submit" value="Add New Agent" />
+
+</form>

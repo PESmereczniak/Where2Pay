@@ -1,0 +1,26 @@
+﻿<h1>@ViewBag.Title</h1>
+
+@if (ViewBag.userBillers.Count == 0)
+{
+    <p><h2>No billers yet!</h2></p>
+}
+
+<table class="table">
+
+    <tr>
+        <th>Name</th>
+        <th>Account</th>
+        <th><h4>Where2Pay</h4></th>
+    </tr>
+
+    @foreach (var biller in ViewBag.userBillers)
+    {
+        <tr>
+            <td>@biller.Name</td>
+            <td>@biller.Account</td>
+            <td><input type="button" value="Where2Pay @biller.Name" /></td>
+        </tr>
+    }
+</table>
+
+<p><a asp-area="" asp-controller="UserBiller" asp-action="Add">Add Biller</a></p>

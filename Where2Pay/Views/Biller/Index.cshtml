@@ -1,0 +1,26 @@
+﻿<h1>@ViewBag.Title</h1>
+
+@if (ViewBag.billers.Count == 0)
+{
+    <p><h2>No billers yet!</h2></p>
+}
+
+<table class="table">
+
+    <tr>
+        <th>Billers</th>
+        <th>Phone Number</th>
+        <th> </th>
+    </tr>
+
+    @foreach (var biller in ViewBag.billers)
+    {
+        <tr>
+            <td>@biller.Name</td>
+            <td>@biller.Phone</td>
+            <td><a asp-area="" asp-controller="Biller" asp-action="Remove">Edit or Remove Biller</a></td>
+        </tr>
+    }
+</table>
+
+<p><a asp-area="" asp-controller="Biller" asp-action="Add">Add Biller</a></p>

@@ -1,19 +1,22 @@
-﻿<h1>Add Biller</h1>
+﻿@model Where2Pay.ViewModels.AddUserBillerViewModel
 
-<form method="post">
+<h1>Add Biller</h1>
+
+<form asp-controller="UserBiller" asp-action="Add" method="post">
 
     <div class="form-group">
-        <label for="name">Select Biller</label>
-        <select class="form-control" name="name" id="name">
-            @foreach (var biller in ViewBag.billers)
-            {
-                <option>@biller.Name</option>
-            }
-        </select>
+        <label asp-for="UsersBiller"></label>
+        <select asp-for="UsersBiller" asp-items="Model.UsersBillerList"></select>
     </div>
     <div class="form-group">
-        <label for="account">Account</label>
-        <input class="form-control" name="account" id="account" type="text" />
+        <label asp-for="Description"></label>
+        <input class="form-control" asp-for="Description" />
+        <span asp-validation-for="Description"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Account"></label>
+        <input class="form-control" asp-for="Account" />
+        <span asp-validation-for="Account"></span>
     </div>
 
     <input type="submit" value="Add Biller" />

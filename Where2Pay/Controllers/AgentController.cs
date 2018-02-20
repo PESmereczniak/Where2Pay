@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using System.Web;
 using Where2Pay.Models;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -17,6 +18,7 @@ namespace Where2Pay.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
+            ViewBag.billers = BillerDetail.GetAll();
             ViewBag.agents = AgentDetail.GetAll();
 
             return View();
@@ -32,6 +34,10 @@ namespace Where2Pay.Controllers
         [Route("/Agent/Add")]
         public IActionResult NewAgent(Agent newAgent)
         {
+            // ADD BILLERS TO AGENTBILLER LIST
+            var billerToAdd = Request.Form["name"];
+            //newAgent.AgentBillers.Append(billerToAdd);
+
             // Add new agent to existing agent
             AgentDetail.Add(newAgent);
 

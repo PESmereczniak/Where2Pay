@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Where2Pay.Models;
+using Where2Pay.ViewModels;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,9 +18,9 @@ namespace Where2Pay.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            ViewBag.userBillers = UserBillerDetail.GetAll();
+            List<UserBiller> biller = UserBillerDetail.GetAll();
 
-            return View();
+            return View(biller);
         }
 
         [Route("/Shared/Where2Contact")]
@@ -30,20 +31,27 @@ namespace Where2Pay.Controllers
 
         public IActionResult Add()
         {
-            ViewBag.billers = BillerDetail.GetAll();
-
-            return View();
+            AddUserBillerViewModel addUserBillerViewModel = new AddUserBillerViewModel();
+            return View(addUserBillerViewModel);
         }
 
         // GET: /<controller>/
         [HttpPost]
-        [Route("/UserBiller/Add")]
-        public IActionResult NewUserBiller(UserBiller newUserBiller)
+        public IActionResult Add(AddUserBillerViewModel addUserBillerViewModel)
         {
-            // Add new biller to existing billers
-            UserBillerDetail.Add(newUserBiller);
-
-            return Redirect("/UserBiller");
+            if (ModelState.IsValid)
+            {
+                // Add new cheese to existing cheeses
+                UserBiller newUserBiller = new UserBiller
+                {
+                    Account = addUserBillerViewModel.Account,
+                    Description = addUserBillerViewModel.Description,
+                    UsersBiller = addUserBillerViewModel.UsersBiller
+                };
+                UserBillerDetail.Add(newUserBiller);
+                return Redirect("/");
+            }
+            return View(addUserBillerViewModel);
         }
 
         public IActionResult Remove()

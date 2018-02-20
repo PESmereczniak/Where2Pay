@@ -1,4 +1,4 @@
-﻿<h1>Add Biller</h1>
+﻿<h1>Add Agent Location</h1>
 
 <form method="post">
 
@@ -30,13 +30,14 @@
         <label for="zip">Zip</label>
         <input class="form-control" name="zip" id="zip" type="text" />
     </div>
+
     <h3>Biller Select</h3>
     @foreach (var biller in ViewBag.billers)
     {
-        <input type="checkbox" name="BillerId" id="@biller.BillerId" value="@biller.BillerId" />
-        <label for="@biller.BillerId">@biller.Name</label>
-        <br />
+    <div asp-action="Add" class="form-group">
+        <input type="checkbox" name="agentBiller" id="@biller.Name" value="@biller.Name" />
+        <label for="agentBillers">@biller.Name</label>
+    </div>
     }
     <input type="submit" value="Add New Agent" />
-
 </form>

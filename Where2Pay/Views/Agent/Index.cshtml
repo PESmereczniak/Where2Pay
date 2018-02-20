@@ -1,4 +1,5 @@
 ﻿<h1>@ViewBag.Title</h1>
+<h4>This page is for adding Managing Agents (Use direct routing in nav bar to access Add and Remove)</h4>
 
 @if (ViewBag.agents.Count == 0)
 {
@@ -11,6 +12,7 @@
         <th>Agents</th>
         <th>Agent ID</th>
         <th>Agent Phone Number</th>
+        <th>Available Billers</th>
         <th></th>
     </tr>
 
@@ -20,8 +22,8 @@
         <td>@agent.Name</td>
         <td>@agent.AgentId</td>
         <td>@agent.Phone</td>
-
-        <td><a asp-area="" asp-controller="Agent" asp-action="Remove">Edit or Remove</a></td>
+        <td>Agent's Billers Will Be Displayed Here</td>
+    <td><a asp-area="" asp-controller="Agent" asp-action="Remove">Edit or Remove</a></td>
     </tr>
     }
 </table>

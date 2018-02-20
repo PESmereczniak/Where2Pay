@@ -15,18 +15,16 @@ namespace Where2Pay.Models
         public string State { get; set; }
         public string Zip { get; set; }
         public int AgentId { get; set; }
-        public List<AgentBiller> agentBillers;
+
+        //LIST OF INDIVIDUAL AGENT'S BILLERS
+        public List<Agent> AgentBillers { get; set; }
+
         private static int nextId = 1;
 
         public Agent()
         {
             AgentId = nextId;
             nextId++;
-        }
-
-        public class AgentBiller
-        {
-            public List<AgentBiller> agentBillers = new List<AgentBiller>();
         }
     }
 }

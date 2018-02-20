@@ -9,7 +9,9 @@ namespace Where2Pay.Models
     {
         public string Name { get; set; }
         public string Account { get; set; }
-        public int UserBillerId { get; set; }
+        public string Description { get; set; }
+        public UserBillerList UsersBiller { get; set; }
+        public int UserBillerId { get; set; } //Assigns an ID to the biller in the customer's list; does NOT assign global biller ID
         private static int nextId = 1;
 
         public UserBiller()

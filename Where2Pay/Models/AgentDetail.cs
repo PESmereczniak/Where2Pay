@@ -16,10 +16,8 @@ namespace Where2Pay.Models
         }
 
         // Add Method
-        public static void Add(Agent newAgent, int BillerId)
+        public static void Add(Agent newAgent)
         {
-            AgentBiller AgentBillerToAdd = GetById(BillerId);
-            
             agents.Add(newAgent);
         }
 

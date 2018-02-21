@@ -32,11 +32,13 @@ namespace Where2Pay.ViewModels
                 Value = ((int)UserBillerList.ElectriCo).ToString(),
                 Text = UserBillerList.ElectriCo.ToString()
             });
+
             UsersBillerList.Add(new SelectListItem
             {
                 Value = ((int)UserBillerList.WaterCorp).ToString(),
                 Text = UserBillerList.WaterCorp.ToString()
             });
+
             UsersBillerList.Add(new SelectListItem
             {
                 Value = ((int)UserBillerList.Gas).ToString(),

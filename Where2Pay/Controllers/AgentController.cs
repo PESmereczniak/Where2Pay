@@ -18,10 +18,13 @@ namespace Where2Pay.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            ViewBag.billers = BillerDetail.GetAll();
-            ViewBag.agents = AgentDetail.GetAll();
+            //ViewBag.billers = BillerDetail.GetAll();
+            //ViewBag.agents = AgentDetail.GetAll();
 
-            return View();
+            List<Agent> agent = AgentDetail.GetAll();
+            List<Biller> biller = BillerDetail.GetAll();
+
+            return View(biller);
         }
 
         public IActionResult Add()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Where2Pay.Models;
 
 namespace Where2Pay.ViewModels
 {
@@ -34,5 +35,8 @@ namespace Where2Pay.ViewModels
         [Required(ErrorMessage = "Zip Code is Required")]
         [Display(Name = "Zip Code")]
         public string Zip { get; set; }
+
+        public List<Biller> Billers { get; set; }
+
     }
 }

@@ -41,7 +41,7 @@
     </div>
 
     <h3>Biller Select</h3>
-    @foreach (var biller in ViewBag.billers)
+    @foreach (var biller in Model.Billers)
     {
         <div asp-action="Add" class="form-group">
             <input type="checkbox" name="agentBiller" id="@biller.Name" value="@biller.Name" />

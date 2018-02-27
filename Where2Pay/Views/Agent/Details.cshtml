@@ -1,4 +1,6 @@
-﻿<table class="table">
+﻿@model Where2Pay.ViewModels.AgentBillerViewModel
+
+<table class="table">
     <tr>
         <th><h2>Agent</h2></th>
         <th><h2>Contact</h2></th>
@@ -7,7 +9,8 @@
     @foreach (var biller in ViewBag.billers)
     {
         <td>@biller.Name</td>
-        <td><p>@biller.Phone</p>
+        <td>
+            <p>@biller.Phone</p>
             <p>@biller.Address</p>
         </td>
     }

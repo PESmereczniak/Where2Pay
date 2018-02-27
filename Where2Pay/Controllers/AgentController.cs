@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Web;
 using Where2Pay.Models;
+using Where2Pay.ViewModels;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,24 +14,24 @@ namespace Where2Pay.Controllers
     public class AgentController : Controller
     {
 
-        static private List<Agent> agents = new List<Agent>();
+        //static private List<Agent> agents = new List<Agent>();
 
         // GET: /<controller>/
         public IActionResult Index()
         {
-            //ViewBag.billers = BillerDetail.GetAll();
-            //ViewBag.agents = AgentDetail.GetAll();
+            AgentBillerViewModel model = new AgentBillerViewModel();
+            model.Agents = AgentDetail.GetAll();
+            model.Billers = BillerDetail.GetAll();
 
-            List<Agent> agent = AgentDetail.GetAll();
-            List<Biller> biller = BillerDetail.GetAll();
-
-            return View(biller);
+            return View(model);
         }
 
         public IActionResult Add()
         {
-            ViewBag.billers = BillerDetail.GetAll();
-            return View();
+            AgentBillerViewModel model = new AgentBillerViewModel();
+            model.Agents = AgentDetail.GetAll();
+            model.Billers = BillerDetail.GetAll();
+            return View(model);
         }
         // GET: /<controller>/
         [HttpPost]
@@ -41,7 +42,7 @@ namespace Where2Pay.Controllers
             var billerToAdd = Request.Form["name"];
             //newAgent.AgentBillers.Append(billerToAdd);
 
-            // Add new agent to existing agent
+            // Add new agent
             AgentDetail.Add(newAgent);
 
             return Redirect("/Agent");

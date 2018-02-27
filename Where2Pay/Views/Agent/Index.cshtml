@@ -1,4 +1,4 @@
-﻿@model Where2Pay.ViewModels.[insertnameofviewmodel]
+﻿@model Where2Pay.ViewModels.AgentBillerViewModel
 
 <h1>@ViewBag.Title</h1>
 <h4>This page is for adding Managing Agents (Use direct routing in nav bar to access Add and Remove)</h4>
@@ -18,7 +18,7 @@
         <th></th>
     </tr>
 
-    @foreach (var agent in ViewBag.agents)
+    @foreach (var agent in Model.Agents)
     {
     <tr>
         <td>@agent.Name</td>

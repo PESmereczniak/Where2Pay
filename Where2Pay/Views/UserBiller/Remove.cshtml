@@ -1,7 +1,9 @@
-﻿<h1>@ViewBag.title</h1>
+﻿@model List<Where2Pay.Models.UserBiller>
+
+<h1>@ViewBag.title</h1>
 
 <form method="post">
-    @foreach (var biller in ViewBag.UserBillers)
+    @foreach (var biller in Model)
     {
         <input type="checkbox" name="BillerIds" id="@biller.UserBillerId" value="@biller.UserBillerId" />
         <label for="@biller.UserBillerId">@biller.Name</label>

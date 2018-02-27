@@ -18,9 +18,11 @@ namespace Where2Pay.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            List<UserBiller> biller = UserBillerDetail.GetAll();
+            UserBillerViewModel model = new UserBillerViewModel();
+            model.UserBillers = UserBillerDetail.GetAll();
+            model.Billers = BillerDetail.GetAll();
 
-            return View(biller);
+            return View(model);
         }
 
         [Route("/Shared/Where2Contact")]
@@ -57,8 +59,8 @@ namespace Where2Pay.Controllers
         public IActionResult Remove()
         {
             ViewBag.title = "Remove Billers";
-            ViewBag.userBillers = UserBillerDetail.GetAll();
-            return View();
+            List<UserBiller> biller = UserBillerDetail.GetAll();
+            return View(biller);
         }
 
         [HttpPost]

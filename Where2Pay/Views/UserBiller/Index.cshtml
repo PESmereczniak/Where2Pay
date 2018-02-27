@@ -1,9 +1,9 @@
-﻿@model List<Where2Pay.Models.UserBiller>
+﻿@model Where2Pay.ViewModels.UserBillerViewModel
 
 <h1>@ViewBag.Title</h1>
 <h4>This page is for adding Managing A User's List of Billers</h4>
 
-@if (Model.Count == 0)
+@if (Model.UserBillers.Count == 0)
 {
     <p><h2>No billers yet!</h2></p>
 }
@@ -17,7 +17,7 @@
         <th>Where2Pay</th>
     </tr>
 
-    @foreach (var biller in Model)
+    @foreach (var biller in Model.UserBillers)
     {
         <tr>
             <td>@biller.UsersBiller</td>

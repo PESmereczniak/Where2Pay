@@ -3,7 +3,7 @@
 <h1>@ViewBag.Title</h1>
 <h4>This page is for adding Managing Agents (Use direct routing in nav bar to access Add and Remove)</h4>
 
-@if (ViewBag.agents.Count == 0)
+@if (Model.Agents.Count == 0)
 {
     <p><h2>No Agents yet!</h2></p>
 }

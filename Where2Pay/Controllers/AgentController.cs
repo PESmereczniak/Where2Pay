@@ -51,8 +51,9 @@ namespace Where2Pay.Controllers
         public IActionResult Remove()
         {
             ViewBag.title = "Remove Agents";
-            ViewBag.agents = AgentDetail.GetAll();
-            return View();
+            List<Agent> agents = AgentDetail.GetAll();
+
+            return View(agents);
         }
 
         [HttpPost]

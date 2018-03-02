@@ -18,9 +18,9 @@ namespace Where2Pay.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            ViewBag.billers = BillerDetail.GetAll();
+            List<Biller> billers = BillerDetail.GetAll();
 
-            return View();
+            return View(billers);
         }
 
         public IActionResult Add()
@@ -52,8 +52,9 @@ namespace Where2Pay.Controllers
         public IActionResult Remove()
         {
             ViewBag.title = "Remove Billers";
-            ViewBag.billers = BillerDetail.GetAll();
-            return View();
+            List<Biller> billers = BillerDetail.GetAll();
+
+            return View(billers);
         }
 
         [HttpPost]

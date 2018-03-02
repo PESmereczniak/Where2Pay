@@ -1,15 +1,18 @@
-﻿<table class="table">
+﻿@model List<Where2Pay.Models.Biller> <!--WILL REQUIRE A VIEW MODEL-->
+
+<table class="table">
     <tr>
         <th><h2>Biller</h2></th>
         <th><h2>Contact</h2></th>
     </tr>
 
-    @foreach (var biller in ViewBag.billers)
+    @foreach (var biller in Model)
     {
         <td>@biller.Name</td>
-        <td><p>@biller.Phone</p>
+        <td>
+            <p>@biller.Phone</p>
             <p>@biller.Email</p>
-            <p><a href="@biller.WebAddress">@biller.Webaddress</a></p>
+            <p><a href="@biller.Web">@biller.Web</a></p>
         </td>
     }
 </table>

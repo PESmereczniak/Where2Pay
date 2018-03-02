@@ -1,7 +1,9 @@
-﻿<h1>@ViewBag.title</h1>
+﻿@model Where2Pay.ViewModels.AgentBillerViewModel
+
+<h1>@ViewBag.title</h1>
 
 <form method="post">
-    @foreach (var agent in ViewBag.agents)
+    @foreach (var agent in Model.Agents)
     {
         <input type="checkbox" name="AgentIds" id="@agent.AgentId" value="@agent.AgentId" />
         <label for="@agent.AgentId">@agent.Name</label>

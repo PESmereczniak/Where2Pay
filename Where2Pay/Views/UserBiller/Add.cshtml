@@ -4,6 +4,13 @@
 
 <form asp-controller="UserBiller" asp-action="Add" method="post">
 
+    @foreach (var biller in ViewBag.billers)
+    {
+        <input type="checkbox" name="BillerIds" id="@biller.ID" value="@biller.ID" />
+        <label for="@biller.ID">@biller.Name</label>
+        <br />
+
+    }
     <div class="form-group">
         <label asp-for="UsersBiller"></label>
         <select asp-for="UsersBiller" asp-items="Model.UsersBillerList"></select>

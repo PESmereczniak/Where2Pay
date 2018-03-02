@@ -9,7 +9,7 @@ namespace Where2Pay.ViewModels
 {
     public class UserBillerViewModel
     {
-        public List<UserBiller> UserBillers { get; set; } // = AgentDetail.GetAll();
-        public List<Biller> Billers { get; set; } // = BillerDetail.GetAll();
+        public List<UserBiller> UserBillers { get; set; }
+        public List<Biller> Billers { get; set; }
     }
 }

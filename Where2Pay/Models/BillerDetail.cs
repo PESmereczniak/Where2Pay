@@ -30,7 +30,7 @@ namespace Where2Pay.Models
         // Get By ID
         public static Biller GetById(int id)
         {
-            return billers.Single(x => x.BillerId == id);
+            return billers.Single(x => x.ID == id);
         }
     }
 }

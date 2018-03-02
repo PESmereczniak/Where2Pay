@@ -11,13 +11,6 @@ namespace Where2Pay.Models
         public string Phone { get; set; }
         public string Email { get; set; }
         public string Web { get; set; }
-        public int BillerId { get; set; }
-        private static int nextId = 1;
-
-        public Biller()
-        {
-            BillerId = nextId;
-            nextId++;
-        }
+        public int ID { get; set; }
     }
 }

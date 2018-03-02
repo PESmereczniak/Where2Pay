@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Where2Pay.Data;
 using Where2Pay.Models;
 using Where2Pay.ViewModels;
 
@@ -12,13 +13,17 @@ namespace Where2Pay.Controllers
 {
     public class BillerController : Controller
     {
+        private BillerDbContext context;
 
-        static private List<Biller> billers = new List<Biller>();
+        public BillerController(BillerDbContext dbContext)
+        {
+            context = dbContext;
+        }
 
         // GET: /<controller>/
         public IActionResult Index()
         {
-            List<Biller> billers = BillerDetail.GetAll();
+            List<Biller> billers = context.Billers.ToList();
 
             return View(billers);
         }
@@ -42,8 +47,12 @@ namespace Where2Pay.Controllers
                     Email = addBillerViewModel.Email,
                     Web = addBillerViewModel.Web
                 };
-                // Add new biller to existing billers
-                BillerDetail.Add(newBiller);
+
+                //creates model in database
+                context.Billers.Add(newBiller);
+                //commits changes to db
+                context.SaveChanges();
+
                 return Redirect("/Biller");
             }
             return View(addBillerViewModel);
@@ -52,9 +61,9 @@ namespace Where2Pay.Controllers
         public IActionResult Remove()
         {
             ViewBag.title = "Remove Billers";
-            List<Biller> billers = BillerDetail.GetAll();
+            ViewBag.billers = context.Billers.ToList();
 
-            return View(billers);
+            return View();
         }
 
         [HttpPost]
@@ -62,8 +71,11 @@ namespace Where2Pay.Controllers
         {
             foreach (int billerId in billerIds)
             {
-                BillerDetail.Remove(billerId);
+                Biller theBiller = context.Billers.Single(c => c.ID == billerId);
+                context.Billers.Remove(theBiller);
             }
+
+            context.SaveChanges();
 
             return Redirect("/Biller");
         }

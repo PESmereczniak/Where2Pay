@@ -35,6 +35,5 @@ namespace Where2Pay.ViewModels
         [Required(ErrorMessage = "Zip Code is Required")]
         [Display(Name = "Zip Code")]
         public string Zip { get; set; }
-
     }
 }

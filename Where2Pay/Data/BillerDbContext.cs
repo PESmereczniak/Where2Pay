@@ -21,7 +21,20 @@ namespace Where2Pay.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AgentsBillers>().HasKey(a => new { a.AgentID, a.BillerID });
+            modelBuilder.Entity<AgentsBillers>()
+                .HasKey(a => new { a.AgentID, a.BillerID });
         }
+
+        //protected override void OnModelCreating(ModelBuilder modelbuilder)
+        //{
+        //    modelbuilder.Entity<AgentsBillers>().HasKey(a => new { a.AgentID, a.BillerID });
+
+        //    foreach (var relationship in modelbuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+        //    {
+        //        relationship.DeleteBehavior = DeleteBehavior.Restrict;
+        //    }
+
+        //    base.OnModelCreating(modelbuilder);
+        //}
     }
 }

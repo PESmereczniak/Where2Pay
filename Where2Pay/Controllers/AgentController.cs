@@ -49,7 +49,7 @@ namespace Where2Pay.Controllers
                 context.Agents.Add(newAgent);
                 context.SaveChanges();
 
-                return Redirect("/Category");
+                return Redirect("/Agent");
 
             }
             return View(addAgentViewModel);

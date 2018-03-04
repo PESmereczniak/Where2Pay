@@ -39,14 +39,5 @@
         <input class="form-control" asp-for="Zip" />
         <span asp-validation-for="Zip"></span>
     </div>
-
-    <h3>Biller Select</h3>
-    @foreach (var biller in Model.Billers)
-    {
-        <div asp-action="Add" class="form-group">
-            <input type="checkbox" name="agentBiller" id="@biller.ID" value="@biller.Name" />
-            <label for="agentBillers">@biller.Name</label>
-        </div>
-    }
     <input type="submit" value="Add New Agent" />
 </form>

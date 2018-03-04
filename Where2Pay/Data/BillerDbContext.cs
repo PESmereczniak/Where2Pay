@@ -1,14 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Where2Pay.Models;
+﻿using Where2Pay.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Where2Pay.Data
 {
     public class BillerDbContext : DbContext
     {
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<AgentsBillers>()
+                .HasKey(a => new { a.AgentID, a.BillerID });
+        }
 
         public DbSet<Biller> Billers { get; set; }
         public DbSet<Agent> Agents { get; set; }
@@ -18,24 +19,5 @@ namespace Where2Pay.Data
             : base(options)
         {
         }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<AgentsBillers>()
-                .HasKey(a => new { a.AgentID, a.BillerID });
-        }
-
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<AgentsBillers>()
-        //        .HasKey(a => new { a.AgentID, a.BillerID });
-
-        //    foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
-        //    {
-        //        relationship.DeleteBehavior = DeleteBehavior.Restrict;
-        //    }
-
-        //    base.OnModelCreating(modelBuilder);
-        //}
     }
 }

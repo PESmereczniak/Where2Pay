@@ -7,9 +7,9 @@ using Where2Pay.Models;
 
 namespace Where2Pay.ViewModels
 {
-    public class UserBillerViewModel
+    public class ViewAgentViewModel
     {
-        public List<UserBiller> UserBillers { get; set; }
-        public List<Biller> Billers { get; set; }
+        public IList<AgentsBillers> Billers { get; set; }
+        public Agent Agent { get; set; }
     }
 }

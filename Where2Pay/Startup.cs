@@ -46,7 +46,7 @@ namespace Where2Pay
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=UserBiller}/{action=Index}/{id?}");
+                    template: "{controller=Agent}/{action=Index}/{id?}");
             });
         }
     }

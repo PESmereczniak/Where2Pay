@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Web;
 using Where2Pay.Models;
 using Where2Pay.ViewModels;
+using Where2Pay.Data;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,45 +14,90 @@ namespace Where2Pay.Controllers
 {
     public class AgentController : Controller
     {
+        private readonly BillerDbContext context;
 
-        //static private List<Agent> agents = new List<Agent>();
-
-        // GET: /<controller>/
+        public AgentController(BillerDbContext dbContext)
+        {
+            context = dbContext;
+        }
         public IActionResult Index()
         {
-            AgentBillerViewModel model = new AgentBillerViewModel();
-            model.Agents = AgentDetail.GetAll();
-            model.Billers = BillerDetail.GetAll();
-
-            return View(model);
+            List<Agent> agents = context.Agents.ToList();
+            return View(agents);
         }
 
         public IActionResult Add()
         {
             AgentBillerViewModel model = new AgentBillerViewModel();
-            model.Agents = AgentDetail.GetAll();
-            model.Billers = BillerDetail.GetAll();
+            model.Agents = context.Agents.ToList();
+            model.Billers = context.Billers.ToList();
             return View(model);
         }
         // GET: /<controller>/
         [HttpPost]
         [Route("/Agent/Add")]
-        public IActionResult NewAgent(Agent newAgent)
+        [HttpPost]
+        public IActionResult Add(AddAgentViewModel addAgentViewModel)
         {
-            // ADD BILLERS TO AGENTBILLER LIST
-            var billerToAdd = Request.Form["name"];
-            //newAgent.AgentBillers.Append(billerToAdd);
+            if (ModelState.IsValid)
+            {
+                Agent newAgent = new Agent
+                {
+                    Name = addAgentViewModel.Name
+                };
 
-            // Add new agent
-            AgentDetail.Add(newAgent);
+                context.Agents.Add(newAgent);
+                context.SaveChanges();
 
-            return Redirect("/Agent");
+                return Redirect("/Category");
+
+            }
+            return View(addAgentViewModel);
+        }
+
+        public IActionResult AddAgentsBiller(int id)//USES MENU ID FROM HTML FORM TO GET MENU TO ADD A Biller TO Agent
+        {
+            Agent agent = context.Agents.Single(a => a.ID == id);//GETS AGENT BASED ON AGENTID PASSED ABOVE (int id)
+            List<Biller> billers = context.Billers.ToList();//THIS LIST OF BILLERS IS SPECIFICALLY FOR POPULATING A SELECT LIST IN HTML
+            return View(new AddAgentsBillerViewModel(agent, billers));
+        }
+
+        [HttpPost]
+        public IActionResult AddAgentsBiller(AddAgentsBillerViewModel addAgentsBillerViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                //LOCAL VARIABLES CREATED FROM DATA SENT BY HTML FORM THROUGH VIEW MODEL
+                var agentID = addAgentsBillerViewModel.AgentID;
+                var billerID = addAgentsBillerViewModel.BillerID;
+                //TOGETHER THESE MAKE A PRIMARY KEY FOR THE CHEESEMENU OBJECT
+
+                //CHECKS FOR EXISTING RELATIONSHIP - FOR MULTI-DATA RELATIONSHIP DO NOT USE .SINGLE(), BUT USE .TOLIST()
+                IList<AgentsBillers> existingItems = context.AgentsBillers
+                    .Where(ab => ab.AgentID == agentID)
+                    .Where(ab => ab.BillerID == billerID).ToList();
+
+                if (existingItems.Count == 0)//COMPARES NEW TO EXISTING
+                {
+                    AgentsBillers agentBiller = new AgentsBillers
+                    {
+                        Agent = context.Agents.Single(a => a.ID == agentID),
+                        Biller = context.Billers.Single(b => b.ID == billerID)
+                    };
+                    context.AgentsBillers.Add(agentBiller);//WHEN NEW ITEM DOES NOT PREVIOUSLY EXIST, ADD NEW MENUITEM AND...
+                    context.SaveChanges();//...SAVE TO DB
+                }
+
+                return Redirect(string.Format("/Agent/ViewAgent/{0}", addAgentsBillerViewModel.AgentID));//STRING FORMATTING
+            }
+
+            return View(addAgentsBillerViewModel);//IF INVALID DATA, RETURN TO VIEW, DISPLAY ANY ERRORS
         }
 
         public IActionResult Remove()
         {
             ViewBag.title = "Remove Agents";
-            List<Agent> agents = AgentDetail.GetAll();
+            List<Agent> agents = context.Agents.ToList();
 
             return View(agents);
         }
@@ -61,10 +107,13 @@ namespace Where2Pay.Controllers
         {
             foreach (int agentId in agentIds)
             {
-                AgentDetail.Remove(agentId);
+                Agent removeCheese = context.Agents.Single(c => c.ID == agentId);
+                context.Agents.Remove(removeCheese);
             }
 
-            return Redirect("/Agent");
+            context.SaveChanges();
+
+            return Redirect("/");
         }
     }
 }

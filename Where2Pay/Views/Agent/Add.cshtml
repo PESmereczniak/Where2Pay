@@ -44,7 +44,7 @@
     @foreach (var biller in Model.Billers)
     {
         <div asp-action="Add" class="form-group">
-            <input type="checkbox" name="agentBiller" id="@biller.Name" value="@biller.Name" />
+            <input type="checkbox" name="agentBiller" id="@biller.ID" value="@biller.Name" />
             <label for="agentBillers">@biller.Name</label>
         </div>
     }

@@ -7,20 +7,17 @@ using Where2Pay.Data;
 using Where2Pay.Models;
 using Where2Pay.ViewModels;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace Where2Pay.Controllers
 {
     public class BillerController : Controller
     {
-        private BillerDbContext context;
+        private readonly BillerDbContext context;
 
         public BillerController(BillerDbContext dbContext)
         {
             context = dbContext;
         }
 
-        // GET: /<controller>/
         public IActionResult Index()
         {
             List<Biller> billers = context.Billers.ToList();
@@ -31,7 +28,7 @@ namespace Where2Pay.Controllers
         public IActionResult Add()
         {
             AddBillerViewModel addBillerViewModel = new AddBillerViewModel();
-            return View();
+            return View(addBillerViewModel);
         }
 
         // GET: /<controller>/

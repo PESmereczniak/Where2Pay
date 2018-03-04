@@ -1,9 +1,9 @@
-﻿@model Where2Pay.ViewModels.AgentBillerViewModel
+﻿@model List<Where2Pay.Models.Agent>
 
-<h1>@ViewBag.Title</h1>
-<h4>This page is for adding Managing Agents (Use direct routing in nav bar to access Add and Remove)</h4>
+<h1>Agent List</h1>
+<h4>This page is for adding and Managing Agents</h4>
 
-@if (Model.Agents.Count == 0)
+@if (Model.Count == 0)
 {
     <p><h2>No Agents yet!</h2></p>
 }
@@ -18,11 +18,11 @@
         <th></th>
     </tr>
 
-    @foreach (var agent in Model.Agents)
+    @foreach (var agent in Model)
     {
     <tr>
         <td>@agent.Name</td>
-        <td>@agent.AgentId</td>
+        <td>@agent.ID</td>
         <td>@agent.Phone</td>
         <td>Agent's Billers Will Be Displayed Here</td>
     <td><a asp-area="" asp-controller="Agent" asp-action="Remove">Edit or Remove</a></td>

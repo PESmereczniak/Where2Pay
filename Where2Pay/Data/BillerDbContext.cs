@@ -25,16 +25,17 @@ namespace Where2Pay.Data
                 .HasKey(a => new { a.AgentID, a.BillerID });
         }
 
-        //protected override void OnModelCreating(ModelBuilder modelbuilder)
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
-        //    modelbuilder.Entity<AgentsBillers>().HasKey(a => new { a.AgentID, a.BillerID });
+        //    modelBuilder.Entity<AgentsBillers>()
+        //        .HasKey(a => new { a.AgentID, a.BillerID });
 
-        //    foreach (var relationship in modelbuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+        //    foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
         //    {
         //        relationship.DeleteBehavior = DeleteBehavior.Restrict;
         //    }
 
-        //    base.OnModelCreating(modelbuilder);
+        //    base.OnModelCreating(modelBuilder);
         //}
     }
 }

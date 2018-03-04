@@ -36,7 +36,5 @@ namespace Where2Pay.ViewModels
         [Display(Name = "Zip Code")]
         public string Zip { get; set; }
 
-        public List<Biller> Billers { get; set; }//do I need this?
-
     }
 }

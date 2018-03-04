@@ -21,8 +21,7 @@ namespace Where2Pay.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AgentsBillers>()
-                .HasKey(a => new { a.AgentID, a.BillerID });
+            modelBuilder.Entity<AgentsBillers>().HasKey(a => new { a.AgentID, a.BillerID });
         }
     }
 }

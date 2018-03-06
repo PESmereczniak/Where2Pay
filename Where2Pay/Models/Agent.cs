@@ -17,7 +17,6 @@ namespace Where2Pay.Models
         public string State { get; set; }
         public string Zip { get; set; }
 
-        //LIST OF INDIVIDUAL AGENT'S BILLERS
         public IList<AgentsBillers> AgentsBillers { get; set; }
     }
 }

@@ -5,12 +5,6 @@ namespace Where2Pay.Data
 {
     public class BillerDbContext : DbContext
     {
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<AgentsBillers>()
-                .HasKey(a => new { a.AgentID, a.BillerID });
-        }
-
         public DbSet<Biller> Billers { get; set; }
         public DbSet<Agent> Agents { get; set; }
         public DbSet<AgentsBillers> AgentsBillers { get; set; }
@@ -18,6 +12,12 @@ namespace Where2Pay.Data
         public BillerDbContext(DbContextOptions<BillerDbContext> options)
             : base(options)
         {
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<AgentsBillers>()
+                .HasKey(a => new { a.AgentID, a.BillerID });
         }
     }
 }

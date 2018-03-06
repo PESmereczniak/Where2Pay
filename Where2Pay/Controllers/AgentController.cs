@@ -55,44 +55,36 @@ namespace Where2Pay.Controllers
             return View(addAgentViewModel);
         }
 
-        public IActionResult AddAgentsBiller(int id)//USES MENU ID FROM HTML FORM TO GET MENU TO ADD A Biller TO Agent
-        {
-            Agent agent = context.Agents.Single(a => a.ID == id);//GETS AGENT BASED ON AGENTID PASSED ABOVE (int id)
-            List<Biller> billers = context.Billers.ToList();//THIS LIST OF BILLERS IS SPECIFICALLY FOR POPULATING A SELECT LIST IN HTML
-            return View(new AddAgentsBillerViewModel(agent, billers));
-        }
+        //public IActionResult AddAgentsBiller(AddAgentsBillerViewModel addAgentsBillerViewModel)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        //LOCAL VARIABLES CREATED FROM DATA SENT BY HTML FORM THROUGH VIEW MODEL
+        //        var agentID = addAgentsBillerViewModel.AgentID;
+        //        var billerID = addAgentsBillerViewModel.BillerID;
+        //        //TOGETHER THESE MAKE A PRIMARY KEY FOR THE CHEESEMENU OBJECT
 
-        [HttpPost]
-        public IActionResult AddAgentsBiller(AddAgentsBillerViewModel addAgentsBillerViewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                //LOCAL VARIABLES CREATED FROM DATA SENT BY HTML FORM THROUGH VIEW MODEL
-                var agentID = addAgentsBillerViewModel.AgentID;
-                var billerID = addAgentsBillerViewModel.BillerID;
-                //TOGETHER THESE MAKE A PRIMARY KEY FOR THE CHEESEMENU OBJECT
+        //        //CHECKS FOR EXISTING RELATIONSHIP - FOR MULTI-DATA RELATIONSHIP DO NOT USE .SINGLE(), BUT USE .TOLIST()
+        //        IList<AgentsBillers> existingItems = context.AgentsBillers
+        //            .Where(ab => ab.AgentID == agentID)
+        //            .Where(ab => ab.BillerID == billerID).ToList();
 
-                //CHECKS FOR EXISTING RELATIONSHIP - FOR MULTI-DATA RELATIONSHIP DO NOT USE .SINGLE(), BUT USE .TOLIST()
-                IList<AgentsBillers> existingItems = context.AgentsBillers
-                    .Where(ab => ab.AgentID == agentID)
-                    .Where(ab => ab.BillerID == billerID).ToList();
+        //        if (existingItems.Count == 0)//COMPARES NEW TO EXISTING
+        //        {
+        //            AgentsBillers agentBiller = new AgentsBillers
+        //            {
+        //                Agent = context.Agents.Single(a => a.ID == agentID),
+        //                Biller = context.Billers.Single(b => b.ID == billerID)
+        //            };
+        //            context.AgentsBillers.Add(agentBiller);//WHEN NEW ITEM DOES NOT PREVIOUSLY EXIST, ADD NEW MENUITEM AND...
+        //            context.SaveChanges();//...SAVE TO DB
+        //        }
 
-                if (existingItems.Count == 0)//COMPARES NEW TO EXISTING
-                {
-                    AgentsBillers agentBiller = new AgentsBillers
-                    {
-                        Agent = context.Agents.Single(a => a.ID == agentID),
-                        Biller = context.Billers.Single(b => b.ID == billerID)
-                    };
-                    context.AgentsBillers.Add(agentBiller);//WHEN NEW ITEM DOES NOT PREVIOUSLY EXIST, ADD NEW MENUITEM AND...
-                    context.SaveChanges();//...SAVE TO DB
-                }
+        //        return Redirect(string.Format("/Agent/ViewAgent/{0}", addAgentsBillerViewModel.AgentID));//STRING FORMATTING
+        //    }
 
-                return Redirect(string.Format("/Agent/ViewAgent/{0}", addAgentsBillerViewModel.AgentID));//STRING FORMATTING
-            }
-
-            return View(addAgentsBillerViewModel);//IF INVALID DATA, RETURN TO VIEW, DISPLAY ANY ERRORS
-        }
+        //    return View(addAgentsBillerViewModel);//IF INVALID DATA, RETURN TO VIEW, DISPLAY ANY ERRORS
+        //}
 
         public IActionResult Remove()
         {

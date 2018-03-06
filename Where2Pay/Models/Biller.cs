@@ -13,6 +13,9 @@ namespace Where2Pay.Models
         public string Email { get; set; }
         public string Web { get; set; }
 
-        public IList<AgentsBillers> AgentsBillers { get; set; }
+        public int AgentID { get; set; }
+        public Agent Agent { get; set; }
+
+        public ICollection<AgentsBillers> AgentsBillers { get; set; } = new List<AgentsBillers>();
     }
 }

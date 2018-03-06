@@ -17,7 +17,17 @@ namespace Where2Pay.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AgentsBillers>()
-                .HasKey(a => new { a.AgentID, a.BillerID });
+                .HasKey(ab => new { ab.AgentID, ab.BillerID });
+
+            modelBuilder.Entity<AgentsBillers>()
+                .HasOne(ab => ab.Agent)
+                .WithMany(b => b.AgentsBillers)
+                .HasForeignKey(ab => ab.AgentID);
+
+            modelBuilder.Entity<AgentsBillers>()
+                .HasOne(ab => ab.Biller)
+                .WithMany(a => a.AgentsBillers)
+                .HasForeignKey(ab => ab.BillerID);
         }
     }
 }

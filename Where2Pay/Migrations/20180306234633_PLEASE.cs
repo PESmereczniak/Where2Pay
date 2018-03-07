@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Where2Pay.Migrations
 {
-    public partial class newDB : Migration
+    public partial class PLEASE : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -66,13 +66,13 @@ namespace Where2Pay.Migrations
                         column: x => x.AgentID,
                         principalTable: "Agents",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_AgentsBillers_Billers_BillerID",
                         column: x => x.BillerID,
                         principalTable: "Billers",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(

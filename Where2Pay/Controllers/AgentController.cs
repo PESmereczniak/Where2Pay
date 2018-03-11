@@ -62,8 +62,27 @@ namespace Where2Pay.Controllers
 
         public IActionResult ViewAgent(int id)
         {
+            //CONTEXT ACCESSES DB, CHEESEMENUS TO INCLUDE CHEESE ITEMS, WHERE CHEESE MENU ID IS EQUAL TO ID PASSED FROM VIEW...
+            List<AgentsBillers> agentsBillers = context
+                .AgentsBillers
+                .Include(agentsBiller => agentsBiller.Biller)
+                .Where(ab => ab.AgentID == id)
+                .ToList();
+            //...AND PUTS DATA INTO A LIST NAMED "items"
+            //JOIN TABLE UTILIZED
+
+            //FETCHING MENU BY MENU ID
             Agent agent = context.Agents.Single(a => a.ID == id);
-            return View(agent);
+
+            //CREATE INSTANCE OF VIEWMENUVIEWMODEL, WHICH TAKES "Menu" AND "Items" PROPERTIES
+            //SET TO THE VALUES OF "menu" AND "items" FROM ABOVE
+            ViewAgentViewModel viewModel = new ViewAgentViewModel
+            {
+                Agent = agent,
+                Billers = agentsBillers
+            };
+
+            return View(viewModel);
         }
 
         //RENDER PAGE FOR ADDING BILLERS TO AGENT'S LIST

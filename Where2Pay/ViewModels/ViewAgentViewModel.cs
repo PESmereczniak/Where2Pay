@@ -9,7 +9,7 @@ namespace Where2Pay.ViewModels
 {
     public class ViewAgentViewModel
     {
-        public IList<Biller> Billers { get; set; }
         public Agent Agent { get; set; }
+        public IList<AgentsBillers> Billers { get; set; }
     }
 }

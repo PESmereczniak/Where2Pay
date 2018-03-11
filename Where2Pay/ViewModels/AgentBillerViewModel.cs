@@ -14,9 +14,7 @@ namespace Where2Pay.ViewModels
         public List<SelectListItem> AvailableBillers { get; set; }
 
         public int BillerID { get; set; }
-        public int AgentID { get; set; }
-
-        //public List<Biller> Billers { get; set; }     
+        public int AgentID { get; set; }    
 
         public AgentBillerViewModel() { }
 

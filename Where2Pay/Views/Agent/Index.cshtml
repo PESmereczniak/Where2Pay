@@ -11,11 +11,9 @@
 <table class="table">
 
     <tr>
-        <th>Agents</th>
+        <th>Agent</th>
         <th>Agent ID</th>
         <th>Agent Phone Number</th>
-        <th>Available Billers</th>
-        <th></th>
     </tr>
 
     @foreach (var agent in Model)
@@ -24,10 +22,9 @@
         <td><a asp-controller="Agent" asp-action="ViewAgent" asp-route-id=@agent.ID>@agent.Name</a></td>
         <td>@agent.ID</td>
         <td>@agent.Phone</td>
-        <td>Agent's Billers Will Be Displayed Here</td>
-        <td><a asp-area="" asp-controller="Agent" asp-action="Remove">Edit or Remove</a></td>
     </tr>
     }
 </table>
 
 <p><a asp-area="" asp-controller="Agent" asp-action="Add">Add Agent</a></p>
+<p><a asp-area="" asp-controller="Agent" asp-action="Remove">Remove Agent(s)</a></p>

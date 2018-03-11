@@ -8,8 +8,9 @@
         <select asp-for="BillerID" asp-items="Model.AvailableBillers"></select>@*RENDERS DROPDOWN LIST FROM AGENTCONTROLLER.ADDITEM RENDERING ACTION*@
         <span asp-validation-for="BillerID"></span>
     </div>
-    <input type="hidden" name="AgentID" value="@Model.Agent.ID" />@*ALLOWS MENU ID TO BE SUBMITTED AS FORM DATA, WITHOUT RENDERING*@
+    <input type="hidden" name="AgentID" value="@Model.Agent.ID" />
+    @*ALLOWS MENU ID TO BE SUBMITTED AS FORM DATA, WITHOUT RENDERING*@
     @*TYPE=HIDDEN, SO USER DOES NOT SEE, BUT IS USED IN PROCESSING*@
 
-    <input type="submit" value="Add Item" />
+    <input type="submit" value="Add Biller" />
 </form>

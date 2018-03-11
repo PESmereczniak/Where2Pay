@@ -1,22 +1,27 @@
-﻿@model Where2Pay.Models.Biller
+﻿@model Where2Pay.ViewModels.ViewBillerViewModel
 
-<h1>@Model.Name</h1>
+<h1>@Model.Biller.Name</h1>
 
 <table>
     <tr>
         <td><b>Phone Number</b></td>
-        <td>@Model.Phone</td>
+        <td>@Model.Biller.Phone</td>
     </tr>
     <tr>
         <td><b>Email</b></td>
-        <td>@Model.Email</td>
+        <td>@Model.Biller.Email</td>
     </tr>
     <tr>
         <td><b>Website</b></td>
-        <td>@Model.Web</td>
+        <td>@Model.Biller.Web</td>
     </tr>
     <tr>
         <td><b>Available Locations</b></td>
-        <td>List of Available Agents</td>
+        <td>
+            @foreach (var billersAgent in Model.Agents)
+            {
+                <p>@billersAgent.Agent.Name</p>
+            }
+            </td>
     </tr>
 </table>

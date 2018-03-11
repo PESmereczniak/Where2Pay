@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Where2Pay.Data;
 using Where2Pay.Models;
 using Where2Pay.ViewModels;
@@ -59,7 +60,20 @@ namespace Where2Pay.Controllers
         public IActionResult ViewBiller(int id)
         {
             Biller biller = context.Billers.Single(b => b.ID == id);
-            return View(biller);
+
+            List<AgentsBillers> billersAgents = context
+                .AgentsBillers
+                .Include(billersAgent => billersAgent.Agent)
+                .Where(ba => ba.BillerID == id)
+                .ToList();
+
+            ViewBillerViewModel viewModel = new ViewBillerViewModel
+            {
+                Biller = biller,
+                Agents = billersAgents
+            };
+
+            return View(viewModel);
         }
 
             public IActionResult Remove()

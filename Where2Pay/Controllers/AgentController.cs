@@ -10,8 +10,6 @@ using Where2Pay.Data;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace Where2Pay.Controllers
 {
     public class AgentController : Controller
@@ -62,20 +60,14 @@ namespace Where2Pay.Controllers
 
         public IActionResult ViewAgent(int id)
         {
-            //CONTEXT ACCESSES DB, CHEESEMENUS TO INCLUDE CHEESE ITEMS, WHERE CHEESE MENU ID IS EQUAL TO ID PASSED FROM VIEW...
             List<AgentsBillers> agentsBillers = context
                 .AgentsBillers
                 .Include(agentsBiller => agentsBiller.Biller)
                 .Where(ab => ab.AgentID == id)
                 .ToList();
-            //...AND PUTS DATA INTO A LIST NAMED "items"
-            //JOIN TABLE UTILIZED
 
-            //FETCHING MENU BY MENU ID
             Agent agent = context.Agents.Single(a => a.ID == id);
 
-            //CREATE INSTANCE OF VIEWMENUVIEWMODEL, WHICH TAKES "Menu" AND "Items" PROPERTIES
-            //SET TO THE VALUES OF "menu" AND "items" FROM ABOVE
             ViewAgentViewModel viewModel = new ViewAgentViewModel
             {
                 Agent = agent,
@@ -85,45 +77,40 @@ namespace Where2Pay.Controllers
             return View(viewModel);
         }
 
-        //RENDER PAGE FOR ADDING BILLERS TO AGENT'S LIST
         public IActionResult AddAgentsBillers(int id)
         {
-            Agent agent = context.Agents.Single(a => a.ID == id);//GETS MENU BASED ON MENU ID PASSED ABOVE (int id)
-            List<Biller> billers = context.Billers.ToList();//THIS LIST OF BILLERS IS SPECIFICALLY FOR POPULATING A SELECT LIST IN HTML
+            Agent agent = context.Agents.Single(a => a.ID == id);
+            List<Biller> billers = context.Billers.ToList();
             return View(new AgentBillerViewModel(agent, billers));
         }
 
-        //ACTION THAT ADDS BILLER TO AGENT'S LIST
         [HttpPost]
         public IActionResult AddAgentsBillers(AgentBillerViewModel agentBillerViewModel)
         {
             if (ModelState.IsValid)
             {
-                //LOCAL VARIABLES CREATED FROM DATA SENT BY HTML FORM THROUGH VIEW MODEL
                 var agentID = agentBillerViewModel.AgentID;
                 var billerID = agentBillerViewModel.BillerID;
-                //TOGETHER THESE MAKE A PRIMARY KEY FOR THE CHEESEMENU OBJECT
-
-                //CHECKS FOR EXISTING RELATIONSHIP - FOR MULTI-DATA RELATIONSHIP DO NOT USE .SINGLE(), BUT USE .TOLIST()
-                IList<AgentsBillers> existingItems = context.AgentsBillers
+                
+                                IList<AgentsBillers> existingItems = context.AgentsBillers
                     .Where(ab => ab.AgentID == agentID)
                     .Where(ab => ab.BillerID == billerID).ToList();
 
-                if (existingItems.Count == 0)//COMPARES NEW TO EXISTING
+                if (existingItems.Count == 0)
                 {
                     AgentsBillers agentBiller = new AgentsBillers
                     {
                         Agent = context.Agents.Single(a => a.ID == agentID),
                         Biller = context.Billers.Single(b => b.ID == billerID)
                     };
-                    context.AgentsBillers.Add(agentBiller);//WHEN NEW ITEM DOES NOT PREVIOUSLY EXIST, ADD NEW MENUITEM AND...
-                    context.SaveChanges();//...SAVE TO DB
+                    context.AgentsBillers.Add(agentBiller);
+                    context.SaveChanges();
                 }
 
-                return Redirect(string.Format("/Agent/ViewAgent/{0}", agentBillerViewModel.AgentID));//STRING FORMATTING
+                return Redirect(string.Format("/Agent/ViewAgent/{0}", agentBillerViewModel.AgentID));
             }
 
-            return View(agentBillerViewModel);//IF INVALID DATA, RETURN TO VIEW, DISPLAY ANY ERRORS
+            return View(agentBillerViewModel);
         }
 
         public IActionResult Remove()

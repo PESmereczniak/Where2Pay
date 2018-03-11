@@ -35,5 +35,10 @@ namespace Where2Pay.ViewModels
         [Required(ErrorMessage = "Zip Code is Required")]
         [Display(Name = "Zip Code")]
         public string Zip { get; set; }
+
+        //[Display(Name = "Assigned Billers")]
+        //public List<AgentsBillers> AgentsBillers { get; set; }
+
+        //public IList<Biller> Billers = new List<Biller>();
     }
 }

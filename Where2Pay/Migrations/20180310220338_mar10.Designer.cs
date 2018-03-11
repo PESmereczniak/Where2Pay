@@ -11,8 +11,8 @@ using Where2Pay.Data;
 namespace Where2Pay.Migrations
 {
     [DbContext(typeof(BillerDbContext))]
-    [Migration("20180306234633_PLEASE")]
-    partial class PLEASE
+    [Migration("20180310220338_mar10")]
+    partial class mar10
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -63,8 +63,6 @@ namespace Where2Pay.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AgentID");
-
                     b.Property<string>("Email");
 
                     b.Property<string>("Name");
@@ -74,8 +72,6 @@ namespace Where2Pay.Migrations
                     b.Property<string>("Web");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("AgentID");
 
                     b.ToTable("Billers");
                 });
@@ -90,14 +86,6 @@ namespace Where2Pay.Migrations
                     b.HasOne("Where2Pay.Models.Biller", "Biller")
                         .WithMany("AgentsBillers")
                         .HasForeignKey("BillerID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Where2Pay.Models.Biller", b =>
-                {
-                    b.HasOne("Where2Pay.Models.Agent", "Agent")
-                        .WithMany()
-                        .HasForeignKey("AgentID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

@@ -28,14 +28,11 @@ namespace Where2Pay.Controllers
 
         public IActionResult Add()
         {
-            AgentBillerViewModel model = new AgentBillerViewModel();
-            model.Agents = context.Agents.ToList();
-            model.Billers = context.Billers.ToList();
-            return View(model);
+            AddAgentViewModel addAgentViewModel = new AddAgentViewModel();
+            return View(addAgentViewModel);
         }
+
         // GET: /<controller>/
-        [HttpPost]
-        [Route("/Agent/Add")]
         [HttpPost]
         public IActionResult Add(AddAgentViewModel addAgentViewModel)
         {
@@ -43,7 +40,13 @@ namespace Where2Pay.Controllers
             {
                 Agent newAgent = new Agent
                 {
-                    Name = addAgentViewModel.Name
+                    Name = addAgentViewModel.Name,
+                    Phone = addAgentViewModel.Phone,
+                    Street1 = addAgentViewModel.Street1,
+                    Street2 = addAgentViewModel.Street2,
+                    City = addAgentViewModel.City,
+                    State = addAgentViewModel.State,
+                    Zip = addAgentViewModel.Zip
                 };
 
                 context.Agents.Add(newAgent);
@@ -89,9 +92,9 @@ namespace Where2Pay.Controllers
         public IActionResult Remove()
         {
             ViewBag.title = "Remove Agents";
-            List<Agent> agents = context.Agents.ToList();
+            ViewBag.agents = context.Agents.ToList();
 
-            return View(agents);
+            return View();
         }
 
         [HttpPost]

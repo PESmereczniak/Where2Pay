@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Where2Pay.Migrations
 {
-    public partial class PLEASE : Migration
+    public partial class mar10 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -34,7 +34,6 @@ namespace Where2Pay.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AgentID = table.Column<int>(nullable: false),
                     Email = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     Phone = table.Column<string>(nullable: true),
@@ -43,12 +42,6 @@ namespace Where2Pay.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Billers", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Billers_Agents_AgentID",
-                        column: x => x.AgentID,
-                        principalTable: "Agents",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -66,24 +59,19 @@ namespace Where2Pay.Migrations
                         column: x => x.AgentID,
                         principalTable: "Agents",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_AgentsBillers_Billers_BillerID",
                         column: x => x.BillerID,
                         principalTable: "Billers",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AgentsBillers_BillerID",
                 table: "AgentsBillers",
                 column: "BillerID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Billers_AgentID",
-                table: "Billers",
-                column: "AgentID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -92,10 +80,10 @@ namespace Where2Pay.Migrations
                 name: "AgentsBillers");
 
             migrationBuilder.DropTable(
-                name: "Billers");
+                name: "Agents");
 
             migrationBuilder.DropTable(
-                name: "Agents");
+                name: "Billers");
         }
     }
 }

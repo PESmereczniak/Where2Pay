@@ -7,6 +7,7 @@ using System.Web;
 using Where2Pay.Models;
 using Where2Pay.ViewModels;
 using Where2Pay.Data;
+using System.Diagnostics;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -56,6 +57,12 @@ namespace Where2Pay.Controllers
 
             }
             return View(addAgentViewModel);
+        }
+
+        public IActionResult ViewAgent(int id)
+        {
+            Agent agent = context.Agents.Single(a => a.ID == id);
+            return View(agent);
         }
 
         //public IActionResult AddAgentsBiller(AddAgentsBillerViewModel addAgentsBillerViewModel)

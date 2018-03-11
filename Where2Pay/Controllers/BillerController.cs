@@ -56,7 +56,13 @@ namespace Where2Pay.Controllers
             return View(addBillerViewModel);
         }
 
-        public IActionResult Remove()
+        public IActionResult ViewBiller(int id)
+        {
+            Biller biller = context.Billers.Single(b => b.ID == id);
+            return View(biller);
+        }
+
+            public IActionResult Remove()
         {
             ViewBag.title = "Remove Billers";
             ViewBag.billers = context.Billers.ToList();

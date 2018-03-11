@@ -19,7 +19,7 @@
     @foreach (var biller in Model)
     {
         <tr>
-            <td>@biller.Name</td>
+            <td><a asp-controller="Biller" asp-action="ViewBiller" asp-route-id=@biller.ID>@biller.Name</a></td>
             <td>@biller.Phone</td>
             <td><a asp-area="" asp-controller="Biller" asp-action="Remove">Edit or Remove Biller</a></td>
         </tr>

@@ -13,6 +13,10 @@
     </tr>
     <tr>
         <td><b>Processes Payments For</b></td>
-        <td></br>Available Billers will be displayed here</td>
+        @*foreach (biller in Agent.AgentsBillers)
+            {
+            <td>biller.Name</td> ---or something like that
+            }*@
+        <td><a asp-controller="Agent" asp-action="AddAgentsBillers" asp-route-id="@Model.ID"><b>Add a Biller</b></a></td>
     </tr>
 </table>

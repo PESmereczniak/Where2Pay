@@ -8,6 +8,7 @@ using Where2Pay.Models;
 using Where2Pay.ViewModels;
 using Where2Pay.Data;
 using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -65,36 +66,46 @@ namespace Where2Pay.Controllers
             return View(agent);
         }
 
-        //public IActionResult AddAgentsBiller(AddAgentsBillerViewModel addAgentsBillerViewModel)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        //LOCAL VARIABLES CREATED FROM DATA SENT BY HTML FORM THROUGH VIEW MODEL
-        //        var agentID = addAgentsBillerViewModel.AgentID;
-        //        var billerID = addAgentsBillerViewModel.BillerID;
-        //        //TOGETHER THESE MAKE A PRIMARY KEY FOR THE CHEESEMENU OBJECT
+        //RENDER PAGE FOR ADDING BILLERS TO AGENT'S LIST
+        public IActionResult AddAgentsBillers(int id)
+        {
+            Agent agent = context.Agents.Single(a => a.ID == id);//GETS MENU BASED ON MENU ID PASSED ABOVE (int id)
+            List<Biller> billers = context.Billers.ToList();//THIS LIST OF BILLERS IS SPECIFICALLY FOR POPULATING A SELECT LIST IN HTML
+            return View(new AgentBillerViewModel(agent, billers));
+        }
 
-        //        //CHECKS FOR EXISTING RELATIONSHIP - FOR MULTI-DATA RELATIONSHIP DO NOT USE .SINGLE(), BUT USE .TOLIST()
-        //        IList<AgentsBillers> existingItems = context.AgentsBillers
-        //            .Where(ab => ab.AgentID == agentID)
-        //            .Where(ab => ab.BillerID == billerID).ToList();
+        //ACTION THAT ADDS BILLER TO AGENT'S LIST
+        [HttpPost]
+        public IActionResult AddAgentsBillers(AgentBillerViewModel agentBillerViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                //LOCAL VARIABLES CREATED FROM DATA SENT BY HTML FORM THROUGH VIEW MODEL
+                var agentID = agentBillerViewModel.AgentID;
+                var billerID = agentBillerViewModel.BillerID;
+                //TOGETHER THESE MAKE A PRIMARY KEY FOR THE CHEESEMENU OBJECT
 
-        //        if (existingItems.Count == 0)//COMPARES NEW TO EXISTING
-        //        {
-        //            AgentsBillers agentBiller = new AgentsBillers
-        //            {
-        //                Agent = context.Agents.Single(a => a.ID == agentID),
-        //                Biller = context.Billers.Single(b => b.ID == billerID)
-        //            };
-        //            context.AgentsBillers.Add(agentBiller);//WHEN NEW ITEM DOES NOT PREVIOUSLY EXIST, ADD NEW MENUITEM AND...
-        //            context.SaveChanges();//...SAVE TO DB
-        //        }
+                //CHECKS FOR EXISTING RELATIONSHIP - FOR MULTI-DATA RELATIONSHIP DO NOT USE .SINGLE(), BUT USE .TOLIST()
+                IList<AgentsBillers> existingItems = context.AgentsBillers
+                    .Where(ab => ab.AgentID == agentID)
+                    .Where(ab => ab.BillerID == billerID).ToList();
 
-        //        return Redirect(string.Format("/Agent/ViewAgent/{0}", addAgentsBillerViewModel.AgentID));//STRING FORMATTING
-        //    }
+                if (existingItems.Count == 0)//COMPARES NEW TO EXISTING
+                {
+                    AgentsBillers agentBiller = new AgentsBillers
+                    {
+                        Agent = context.Agents.Single(a => a.ID == agentID),
+                        Biller = context.Billers.Single(b => b.ID == billerID)
+                    };
+                    context.AgentsBillers.Add(agentBiller);//WHEN NEW ITEM DOES NOT PREVIOUSLY EXIST, ADD NEW MENUITEM AND...
+                    context.SaveChanges();//...SAVE TO DB
+                }
 
-        //    return View(addAgentsBillerViewModel);//IF INVALID DATA, RETURN TO VIEW, DISPLAY ANY ERRORS
-        //}
+                return Redirect(string.Format("/Agent/ViewAgent/{0}", agentBillerViewModel.AgentID));//STRING FORMATTING
+            }
+
+            return View(agentBillerViewModel);//IF INVALID DATA, RETURN TO VIEW, DISPLAY ANY ERRORS
+        }
 
         public IActionResult Remove()
         {
